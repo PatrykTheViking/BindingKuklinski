@@ -16,6 +16,7 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
         <Label>Tytuł</Label>
@@ -52,6 +53,17 @@
             Grid.Column="1"
             Grid.Row="3"
             SelectedDate="{Binding DataWydania}"
+            />
+        <Label
+            Grid.Row="4"
+            >Wydawca</Label>
+        <TextBox
+            Grid.Column="1"
+            Grid.Row="4"
+            Text="{Binding
+                Path=Wydawca,
+                UpdateSourceTrigger=PropertyChanged
+            }"
             />
     </Grid>
 </Window>

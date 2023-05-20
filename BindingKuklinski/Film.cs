@@ -112,6 +112,6 @@ public String Tytuł
 
         public string TytułReżyser => $"{tytuł}, Reżyser - {reżyser}";
 
-        public string SkrótSzczegółów => $"{TytułReżyser}, data wydania - {dataWydania}";
+        public string SkrótSzczegółów => $"{TytułReżyser}, wydawca - {wydawca}, data wydania - {dataWydania}";
     }
 }
