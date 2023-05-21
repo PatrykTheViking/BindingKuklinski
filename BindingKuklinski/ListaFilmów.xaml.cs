@@ -22,6 +22,7 @@ using System.Windows.Shapes;
 using Exel = Microsoft.Office.Interop.Excel;
 using ListBox = System.Windows.Controls.ListBox;
 
+
 namespace BindingKuklinski
 {
     /// <summary>
@@ -32,9 +33,11 @@ namespace BindingKuklinski
 
         public ObservableCollection<Film> Filmy { get; } = new ObservableCollection<Film>();
 
-        System.Windows.Controls.ListBox lista;
+        ListBox lista;
+
         List<Film> Films = new List<Film>();
-        string plik = $@"c:\Users\{Environment.UserName}\Desktop\filmy_export";
+
+        string plik = $@"c:\Users\{Environment.UserName}\Desktop\filmy_export.xlsx";
 
         public ListaFilmów()
         {
@@ -43,20 +46,7 @@ namespace BindingKuklinski
             lista = (ListBox)FindName("Lista");
         }
 
-        private void OpenFile()
-        {
-            try
-            {
-                var excelApp = new Microsoft.Office.Interop.Excel.Application();
-                excelApp.Visible = true;
-                Workbooks books = excelApp.Workbooks;
-                Workbook sheets = books.Open(plik);
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Error", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
+
 
         private void Edytuj(object sender, RoutedEventArgs e)
         {
@@ -80,7 +70,37 @@ namespace BindingKuklinski
 
         private void Importuj(object sender, RoutedEventArgs e)
         {
+            System.Data.DataTable dt = new System.Data.DataTable();
+            dt.TableName = "ExcelData";
+            string path = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source="+plik+";Extended Properties='Excel 12.0 Xml; HDR = YES; IMEX = 1';";
+            OleDbConnection cnn = new OleDbConnection(path);
+            string query = "select * from [Arkusz1$]";
+            OleDbDataAdapter adptr = new OleDbDataAdapter(query, cnn);
+            adptr.Fill(dt);
 
+            for(int i = 0; i < dt.Rows.Count; i++)
+            {
+                DataRow drow = dt.Rows[i];
+                if (drow.RowState != DataRowState.Deleted)
+                {
+                    ListBoxItem listBoxItem = new ListBoxItem();             
+                }
+            }
+        }
+
+        private void OpenFile()
+        {
+            try
+            {
+                var excelApp = new Microsoft.Office.Interop.Excel.Application();
+                excelApp.Visible = true;
+                Workbooks books = excelApp.Workbooks;
+                Workbook sheets = books.Open(plik);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void Eksportuj(object sender, RoutedEventArgs e)

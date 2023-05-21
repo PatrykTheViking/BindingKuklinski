@@ -59,17 +59,7 @@ namespace BindingKuklinski
             blueray
         };
 
-/*        public Nośnik nośnik
-        { 
-            get => nośnik; 
-            set 
-            { 
-                nośnik = value; 
-                NotyfikujZmianę();
-            }
-        }*/
-
-public String Tytuł
+        public String Tytuł
         {
             get => tytuł;
             set
@@ -111,6 +101,8 @@ public String Tytuł
 
 
         public string TytułReżyser => $"{tytuł}, Reżyser - {reżyser}";
+
+        /*public string WydawcaNośnik => $"{Wydawca}, nośnik - ";*/
 
         public string SkrótSzczegółów => $"{TytułReżyser}, wydawca - {wydawca}, data wydania - {dataWydania}";
     }
